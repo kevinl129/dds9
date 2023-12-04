@@ -14,7 +14,7 @@ public class Main implements WithSimplePersistenceUnit {
     }
 
     public void start() {
-        System.out.println("Iniciando servidor");
+        System.out.println("Iniciando servidor!");
 
         Spark.port(80);
         Spark.staticFileLocation("/public");
