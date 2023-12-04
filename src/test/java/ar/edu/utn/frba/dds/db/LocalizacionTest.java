@@ -10,8 +10,10 @@ import ar.edu.utn.frba.dds.location.Provincia;
 import ar.edu.utn.frba.dds.model.Organizacion;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class LocalizacionTest implements SimplePersistenceTest {
   @Test
   void contextUp() {

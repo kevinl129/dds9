@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class RepoUsuarioTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;

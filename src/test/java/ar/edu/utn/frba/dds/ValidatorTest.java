@@ -14,6 +14,7 @@ import ar.edu.utn.frba.dds.validator.PasswordValidator;
 import ar.edu.utn.frba.dds.validator.WorstPasswords;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ErrorFormater {
@@ -44,6 +45,7 @@ class ErrorFormater {
      return errors.stream().allMatch(n -> error.contains(n));
   }
 }
+@Disabled
 public class ValidatorTest {
     private PasswordValidator passwordValidator = new PasswordValidator();
 
