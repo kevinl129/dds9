@@ -1,0 +1,31 @@
+{{#partial "principal" }}
+<div class="w-100 py-5 my-5 d-flex justify-content-center align-items-center">
+    {{#if entidad}}
+    {{#if establecimiento}}
+        <form class="p-3 d-flex flex-column bg-body-tertiary" method="POST" action="/incidentes">
+    {{else}}
+        <form class="p-3 d-flex flex-column bg-body-tertiary" action="/incidentes/reportar">
+    {{/if}}
+    {{else}}
+        <form class="p-3 d-flex flex-column bg-body-tertiary" action="/incidentes/reportar">
+    {{/if}}
+        <h6 class="w-100 text-center mb-3">Reportar Incidente</h6>
+        {{#block "select-servicios"}}{{/block}}
+        {{#if entidad}}
+        {{#if establecimiento}}
+        <label class="form-check-label" for="observacion">Observacion</label>
+        <textarea name="observacion" id="observacion" class="form-control mb-2" rows="3" placeholder="Escriba su observación del servicio" required></textarea>
+        <input class="btn btn-primary" type="submit" value="Reportar">
+        {{else}}
+        <input class="btn btn-primary" type="submit" value="Seleccionar">
+        {{/if}}
+        {{else}}
+        <input class="btn btn-primary" type="submit" value="Seleccionar">
+        {{/if}}
+    </form>
+</div>
+{{/partial}}
+
+{{> select-servicios.html.hbs }}
+{{> head.html.hbs }}
+{{> layout.html.hbs }}

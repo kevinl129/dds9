@@ -1,0 +1,92 @@
+{{#partial "principal" }}
+<div class="w-100 h-100">
+        <div class="row">
+            <span class="d-flex flex-row gap-1  align-items-center">
+                <form action="/entidades/{{establecimiento.entidad.id}}" method="get" id="entidad" class="m-0">
+                    <a class="text-dark d-flex align-items-center" onclick="document.getElementById('entidad').submit(); return false;">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                </form>
+            {{establecimiento.entidad.nombre}}
+            </span>
+
+            <div class="col text-center ">
+            <div class="w-100 h-100 bg-body-tertiary container">
+                <div class="row mb-3">
+                    <label for="cheese"><p class="fw-bold">Nombre Establecimiento: </p> {{establecimiento.nombre}}</label>
+                </div>
+                <div class="row mb-3">
+                    <label for="cheese"><p class="fw-bold">Tipo: </p> {{establecimiento.tipo}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end" style="width: 50%" >
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=es&amp;q={{establecimiento.ubicacion.centroide.lat}},{{establecimiento.ubicacion.centroide.lon}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+            </iframe>
+        </div>
+        </div>
+    <section class="container form-control" style="margin-top: 2% !important">
+        {{#if establecimiento.servicios.length}}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Reportar</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each establecimiento.servicios}}
+            <tr>
+                <th scope="row">{{nombre}}</th>
+                <td>{{localizacion.centroide.lon}}, {{localizacion.centroide.lat}}</td>
+                <td>
+                    <button id="boton-{{id}}" type="button" class="btn btn-danger boton-reportador" data-bs-toggle="modal" data-bs-target="#reportarModal">
+                        Reportar Incidente
+                    </button>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <div class="w-100 d-flex justify-content-center">
+            <div class="mt-5 px-3 py-2 text-center rounded bg-body-tertiary" style="width: fit-content;">No hay servicios en el establecimiento</div>
+        </div>
+        {{/if}}
+    </section>
+    <script>
+        const botones = document.getElementsByClassName("boton-reportador");
+        for (const boton of botones) {
+            boton.addEventListener('click', () => {
+                const serviceIdInput = document.getElementById("serviceIdInput");
+                serviceIdInput.value = boton.id.split("boton-")[1];
+            });
+        }
+    </script>
+    <div class="modal fade" id="reportarModal" tabindex="-1" role="dialog" aria-labelledby="reportarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form class="modal-content" method="POST" action="/incidentes">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Reportar Incidente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="p-3 d-flex flex-column">
+                        <input type="hidden" name="service" id="serviceIdInput">
+                        <label class="form-check-label" for="observacion">Observacion</label>
+                        <textarea name="observacion" id="observacion" class="form-control mb-2" rows="3" placeholder="Escriba su observación del servicio" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Reportar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{/partial}}
+
+{{> head.html.hbs }}
+{{> layout.html.hbs }}

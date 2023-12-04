@@ -1,0 +1,44 @@
+{{#partial "select-servicios" }}
+    <div class="col-auto ">
+<div class="w-100 d-flex justify-content-center">
+    <label class="form-check-label" for="entidades">Entidades</label>
+</div>
+<select class="form-select mb-2" name="entidad" id="entidades" required {{#if entidad}}readonly="readonly"{{/if}}>
+    <option value="" {{#unless entidad.id}}selected{{/unless}}>Seleccione la entidad</option>
+    {{#each entidades as |e|}}
+        <option value="{{e.id}}" {{#eq e.id entidad.id}}selected{{/eq}}>{{e.nombre}}</option>
+    {{/each}}
+</select>
+    </div>
+    <div class="col-auto">
+{{#if entidad}}
+<div class="w-100 d-flex justify-content-center">
+    <label class="form-check-label" for="establecimientos">Establecimientos</label>
+</div>
+<select class="form-select mb-2" name="establecimiento" id="establecimientos" required {{#if entidad}}{{#if establecimiento}}readonly="readonly"{{/if}}{{/if}}>
+    <option value="" {{#unless establecimiento.id}}selected{{/unless}}>Seleccione el establecimiento</option>
+    {{#each entidad.establecimientos}}
+    <option value="{{id}}" {{#eq id establecimiento.id}}selected{{/eq}}>{{nombre}}</option>
+    {{/each}}
+</select>
+
+{{/if}}
+    </div>
+    <div class="col-auto">
+{{#if entidad}}
+{{#if establecimiento}}
+<div class="w-100 d-flex justify-content-center">
+    <label class="form-check-label" for="servicios">Servicios</label>
+</div>
+<select class="form-select mb-2" name="service" id="servicios" required>
+    <option value="" selected>Seleccione el servicio</option>
+    {{#each establecimiento.servicios}}
+    <option value="{{id}}">{{nombre}}</option>
+    {{/each}}
+</select>
+
+{{/if}}
+{{/if}}
+    </div>
+
+{{/partial}}

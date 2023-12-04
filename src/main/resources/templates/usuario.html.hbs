@@ -1,0 +1,55 @@
+{{#partial "principal" }}
+<div class="w-100 p-2 pb-5">
+    <section class="d-flex flex-row justify-content-center gap-3 m-2">
+        <form class="h-100 gap-3 me-2 p-3 bg-body-tertiary rounded d-flex flex-column justify-content-center align-items-center" action="/usuarios/{{user.id}}" method="POST">
+            <h6 class="w-100 text-center mb-2"><strong>Informacion Personal</strong></h6>
+            <div class="d-flex flex-row gap-3">
+                <div class="d-flex flex-column">
+                    <label class="form-check-label" for="nombre">Nombre</label>
+                    <input name="nombre" class="form-control" id="nombre" value="{{user.nombre}}" required>
+                </div>
+                <div class="d-flex flex-column">
+                    <label class="form-check-label" for="apellido">Apellido</label>
+                    <input name="apellido" class="form-control" id="apellido" value="{{user.apellido}}" required>
+                </div>
+            </div>
+            <div class="d-flex flex-row gap-2">
+                <div class="d-flex flex-column">
+                    <label class="form-check-label" for="email">Mail</label>
+                    <input type="email" name="email" class="form-control" id="email" value="{{user.email}}" required>
+                </div>
+                <div class="d-flex flex-column">
+                    <label class="form-check-label" for="telefono">Telefono</label>
+                    <input type="tel" name="telefono" class="form-control" id="telefono" value="{{user.telefono}}" required>
+                </div>
+            </div>
+            <div class="d-flex flex-column justify-content mb-2">
+                <label class="form-check-label" for="tipoNotificacion">Tipo Notificacion</label>
+                <select class="form-select" name="tipoNotificacion" id="tipoNotificacion" required>
+                    <option value="Mail" {{#eq user.formaEnvioNotificacion.tipo "Mail"}}selected{{/eq}}>Mail</option>
+                    <option value="Whatsapp" {{#eq user.formaEnvioNotificacion.tipo "Whatsapp"}}selected{{/eq}}>Whatsapp</option>
+                </select>
+            </div>
+            {{#if emailExiste}}
+                <h6 class="text-danger">Ya existe un usuario con el mail</h6>
+            {{/if}}
+            <input class="btn btn-primary" type="submit" value="Editar">
+        </form>
+        <form class="p-2 bg-body-tertiary d-flex flex-column justify-content-center align-items-center" action="/usuarios/{{user.id}}" method="POST">
+            <h6 class="w-100 text-center mb-2"><strong>Cambiar Contraseña</strong></h6>
+            <input class="form-control mb-2" type="password" name="contrasenia" placeholder="Nueva Contraseña" required>
+            {{#if errors}}
+            <h6 class="text-danger">Los errores fueron:</h6>
+            {{#each errors}}
+            <h6 class="text-danger">- {{this}}</h6>
+            {{/each}}
+            {{/if}}
+            <input type="submit" value="Cambiar" class="btn btn-danger">
+        </form>
+    </section>
+</div>
+{{/partial}}
+
+{{> select-servicios.html.hbs }}
+{{> head.html.hbs }}
+{{> layout.html.hbs }}

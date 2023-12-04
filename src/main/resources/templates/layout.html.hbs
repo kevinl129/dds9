@@ -1,0 +1,87 @@
+<html>
+
+{{#block "head" }}
+{{/block}}
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid d-flex flex-row justify-content-between align-items-center">
+            <a class="navbar-brand" href="/">
+                <img src="/logo.png" alt="Logo" width="30" height="24">
+                Community Watch
+            </a>
+            <span class="d-flex flex-row justify-content-between align-items-center gap-2 m-0">
+                <a class="nav-link m-0" href="/entidades">Entidades</a>
+                |
+                <a class="nav-link m-0" href="/incidentes">Incidentes</a>
+                {{#if loggedUser.admin}}
+                |
+                <a class="nav-link m-0" href="/usuarios">Usuarios</a>
+                {{/if}}
+            </span>
+            <div class="d-flex flex-row align-items-center gap-3">
+                <ul class="navbar-nav me-2">
+                    <li class="nav-item dropdown me-5">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{loggedUser.nombre}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/usuarios/{{loggedUser.id}}">Editar Usuario</a></li>
+                            <li><a class="dropdown-item" href="/usuarios/{{loggedUser.id}}/notificaciones">Notificaciones</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form action="/logout" method="post" id="form-logout" class="m-0">
+                    <a onclick="document.getElementById('form-logout').submit(); return false;">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </form>
+            </div>
+        </div>
+
+    </nav>
+
+    <main>
+        {{#block "principal" }}
+        {{/block}}
+        {{#if notificacion}}
+        <div class="toast show position-absolute" id="notification" style="bottom:15;right:15;z-index: 99999999">
+            <div class="toast-header">
+                <strong class="mr-auto">{{notificacion_titulo}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{notificacion}}
+            </div>
+        </div>
+        {{/if}}
+        {{#if notificaciones}}
+        <div class="toast-container position-absolute" style="bottom:15;right:15;z-index: 99999999">
+            {{#each notificaciones}}
+            <div class="toast show">
+                <div class="toast-header">
+                    <strong class="mr-auto">{{notificacionTitulo}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{notificacionBody}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+	</main>
+	<footer class="fixed-bottom footer container-fluid d-flex flex-row justify-content-between align-items-center bg-body-secondary px-4 py-3">
+        <div class="d-flex gap-3">
+            <a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-twitter"></i></a>
+        </div>
+        <h6 class="m-0">
+            Copyright © {{anio}}
+        </h6>
+	</footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+
+</html>

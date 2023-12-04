@@ -1,0 +1,103 @@
+{{#partial "principal" }}
+<div class="w-100 p-2 pb-5">
+    <div class="d-flex flex-column gap-2">
+        <form class="d-flex justify-content-end" action="/incidentes/reportar">
+            <input type="submit" class="btn btn-danger" value="Reportar Incidente">
+        </form>
+        {{#if entidad}}
+            {{#if establecimiento}}
+            <form class="p-2 bg-body-tertiary d-flex flex-column justify-content-center align-items-center" action="/intereses" method="POST">
+            {{else}}
+            <form class="p-2 bg-body-tertiary d-flex flex-column justify-content-center align-items-center" action="/">
+            {{/if}}
+        {{else}}
+        <form class="py-2 bg-body-tertiary d-flex flex-column justify-content-center align-items-center container-lg" action="/">
+        {{/if}}
+        <h6 class="w-100 text-center"><strong>Añadir Intereses</strong></h6>
+        <div class="row d-flex justify-content-center container-lg" >
+        {{#block "select-servicios"}}{{/block}}
+            <div class="col-auto" >
+        <input type="hidden" name="userId" value="{{loggedUser.id}}">
+        {{#if entidad}}
+            {{#if establecimiento}}
+                <div class="w-100 d-flex justify-content-center">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Añadir" style="margin-top: 33%">
+            {{else}}
+                <input class="btn btn-primary" type="submit" value="Seleccionar" style="margin-top: 23%">
+            {{/if}}
+        {{else}}
+            <input class="btn btn-primary" type="submit" value="Seleccionar" style="margin-top: 23%">
+        {{/if}}
+            </div>
+        </div>
+    </form>
+        <div class="py-2 container-sm bg-body-tertiary d-flex flex-column justify-content-center align-items-center ">
+            <h6 class="w-100 text-center mb-2"><strong>Visualizar Intereses</strong></h6>
+            {{#if loggedUser.intereses.length}}
+                <table class="table container-sm w-50 justify-content-center align-items-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Servicio</th>
+                        <th scope="col">Borrar Interes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each loggedUser.intereses}}
+                        <tr>
+                            <td>{{servicio.nombre}}</td>
+                            <td>
+                                <form action="/intereses/{{id}}" method="POST">
+                                    <input type="hidden" name="userId" value="{{loggedUser.id}}">
+                                    <input type="submit" class="btn btn-secondary" value="Eliminar">
+                                </form>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                <div class="w-100 d-flex justify-content-center">
+                    <div class="mt-3 text-center" style="width: fit-content;">No hay intereses del usuario</div>
+                </div>
+            {{/if}}
+        </div>
+    <section class="py-2 container-lg bg-body-tertiary d-flex flex-column justify-content-center align-items-center" style="margin-top: 2%">
+        {{#if incidentes.length}}
+            <h6 class="w-100 text-center mb-2"><strong>Incidentes de Interes</strong></h6>
+        <table class="table" style="height: fit-content">
+            <thead>
+            <tr>
+                <th scope="col">Servicio</th>
+                <th scope="col">Observacion</th>
+                <th scope="col">Fecha Apertura</th>
+                <th scope="col">Cerrar Incidente</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each incidentes}}
+            <tr>
+                <th scope="row">{{interes.servicio.nombre}}</th>
+                <td>{{observacion}}</td>
+                <td>{{fechaCreacion}}</td>
+                <td>
+                    <form class="justify-content-center align-items-center" action="/incidentes/{{id}}" method="POST">
+                        <input type="submit" class="btn btn-danger" value="Cerrar" {{#if fechaCierre}}disabled{{/if}}>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <div class="w-100 d-flex justify-content-center align-items-center">
+            <div class="mt-5 px-3 py-2 text-center rounded bg-body-tertiary" style="width: fit-content;">No hay incidentes en servicios que te interesen</div>
+        </div>
+        {{/if}}
+    </section>
+</div>
+{{/partial}}
+
+{{> select-servicios.html.hbs }}
+{{> head.html.hbs }}
+{{> layout.html.hbs }}

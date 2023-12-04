@@ -1,0 +1,22 @@
+<html>
+    {{#block "head" }}
+    {{/block}}
+    <body class="d-flex flex-column justify-content-center align-items-center container vh-100">
+        <h5 class="text-center mb-3">Bienvenido a Community Watch!</h5>
+        <form class="d-flex flex-column justify-content-center align-items-center bg-body-tertiary rounded py-3 px-5 gap-3">
+            <img class="m-2" src="/logo.png" alt="Logo" width="70" height="70">
+            <div class="d-flex flex-column w-100">
+                <label class="form-label" for="email" class="form-label">Email</label>
+                <input class="form-control" type="text" name="email" id="email" placeholder="Escribe tu email" required>
+            </div>
+            <div class="d-flex flex-column w-100">
+                <label for="password" class="form-label">Contraseña</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Escribe tu contraseña" required>
+            </div>
+            <input class="form-control" type="hidden" name="path" id="path" value="{{redirectPath}}">
+            <h6 class="text-danger">{{incorrectUserText}}</h6>
+            <input class="btn btn-primary" type="submit" value="Iniciar Sesion">
+        </form>
+    </body>
+</html>
+{{> head.html.hbs }}

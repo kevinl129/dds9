@@ -1,0 +1,56 @@
+{{#partial "principal" }}
+<div class="w-100 p-2">
+    <div class="d-flex flex-row justify-content-between p-3">
+        <form class="d-flex flex-row align-items-center">
+            <input type="text" class="form-control me-2" placeholder="Nombre Servicio" value="{{inputService}}" name="serviceName">
+            <input type="radio" id="open" name="typeChecked" {{isOpenChecked}} value="open" required>
+            <label class="form-check-label ms-1 me-2" for="open">Abiertos</label>
+            <input type="radio" id="close" name="typeChecked" {{isCloseChecked}} value="close" required>
+            <label class="form-check-label ms-1 me-2" for="close">Cerrados</label>
+            <input type="radio" id="all" name="typeChecked" {{isAllChecked}} value="all" required>
+            <label class="form-check-label ms-1 me-2" for="close">Todos</label>
+            <input type="submit" class="btn btn-primary" value="Buscar">
+        </form>
+        <form action="/incidentes/reportar">
+            <input type="submit" class="btn btn-danger" value="Reportar Incidente">
+        </form>
+    </div>
+    <section class="container form-control">
+        {{#if incidentes.length}}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Fecha Apertura</th>
+                    <th scope="col">Fecha Cierre</th>
+                    <th scope="col">Cerrar Incidente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each incidentes}}
+                <tr>
+                    <th scope="row">{{interes.servicio.nombre}}</th>
+                    <td>{{observacion}}</td>
+                    <td>{{fechaCreacion}}</td>
+                    <td>{{fechaCierre}}</td>
+                    <td>
+                        <form class="justify-content-center align-items-center" action="/incidentes/{{id}}" method="POST">
+                            <input type="submit" class="btn btn-danger" value="Cerrar" {{#if fechaCierre}}disabled{{/if}}>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <div class="w-100 d-flex justify-content-center">
+            <div class="mt-5 px-3 py-2 text-center rounded bg-body-tertiary" style="width: fit-content;">No hay incidentes con el filtro específicado</div>
+        </div>
+        {{/if}}
+    </section>
+</div>
+{{/partial}}
+
+{{> head.html.hbs }}
+{{> layout.html.hbs }}

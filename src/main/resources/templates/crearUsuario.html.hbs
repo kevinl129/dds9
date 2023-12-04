@@ -1,0 +1,48 @@
+{{#partial "principal"}}
+    <div class="w-100 py-5 my-5 d-flex justify-content-center align-items-center">
+
+        <form class="p-3 d-flex flex-column bg-body-tertiary" method="POST" action="/usuarios" >
+
+            <h4 class="w-100 text-center mb-3"><strong>Crear Usuario</strong></h4>
+            <div class="d-flex flex-row w-100 gap-2">
+                <div class="d-flex flex-column w-100">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input value="{{nombre}}" required id="nombre" class="form-control mb-2" type="text" name="nombre" placeholder="Ingrese su nombre" aria-label="default input example">
+                </div>
+                <div class="d-flex flex-column w-100">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input value="{{apellido}}" required  id="apellido" class="form-control mb-2" type="text" name="apellido" placeholder="Ingrese su apellido" aria-label="default input example">
+                </div>
+            </div>
+            <div class="d-flex flex-row w-100 gap-2">
+                <div class="d-flex flex-column w-100">
+                    <label for="email" class="form-label">Email</label>
+                    <input value="{{email}}" required  id="email" class="form-control mb-2" type="email" name="email" placeholder="Ingrese su Email" aria-label="default input example">
+                </div>
+                <div class="d-flex flex-column w-100">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <input value="{{telefono}}" required  id="telefono" class="form-control mb-2" type="tel" name="telefono" placeholder="Ingrese su teléfono" aria-label="default input example">
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100">
+                <label for="contrasenia" class="form-label">Contraseña</label>
+                <input value="{{contrasenia}}" required id="contrasenia" class="form-control mb-2" type="password" name="contrasenia" placeholder="Ingrese su contraseña" aria-label="default input example">
+            </div>
+            {{#if errors}}
+                <h6 class="text-danger">Los errores fueron:</h6>
+                {{#each errors}}
+                    <h6 class="text-danger">- {{this}}</h6>
+                {{/each}}
+            {{/if}}
+            {{#if emailExiste}}
+                <h6 class="text-danger">Ya existe un usuario con el mail</h6>
+            {{/if}}
+            <input class="btn btn-primary mb-2" type="submit" value="Registrar">
+        </form>
+    </div>
+{{/partial}}
+
+{{> head.html.hbs }}
+{{> layout.html.hbs }}
+
+
