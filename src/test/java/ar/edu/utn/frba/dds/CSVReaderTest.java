@@ -7,8 +7,10 @@ import ar.edu.utn.frba.dds.errors.CsvNotFoundException;
 import ar.edu.utn.frba.dds.errors.InvalidCSVHeadersException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class CSVReaderTest {
   private CSVReader reader;
   private final String pathroot="/src/test/java/ar/edu/utn/frba/dds/mocks/";

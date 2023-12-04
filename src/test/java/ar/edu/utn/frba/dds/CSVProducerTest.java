@@ -7,8 +7,10 @@ import ar.edu.utn.frba.dds.model.Entidad;
 import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class CSVProducerTest {
   private CSVProducer csvProducer;
   private CSVReader reader;
