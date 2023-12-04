@@ -16,7 +16,7 @@ public class Main implements WithSimplePersistenceUnit {
     public void start() {
         System.out.println("Iniciando servidor");
 
-        Spark.port(5000);
+        Spark.port(9191);
         Spark.staticFileLocation("/public");
         Gson gson = new Gson();
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
