@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'dds9'
           slot-name: 'Production'
-          package: '/java-app/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar'
+          package: '${{ github.workspace }}/java-app/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_534B11CC0EC84AF4923D9E71E5A69C05 }}
