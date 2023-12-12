@@ -204,7 +204,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>ar.edu.utn.frba.dds.Main</mainClass>
+              <mainClass>ar.edu.utn.frba.dds.notification.MainNotificaciones</mainClass>
             </manifest>
           </archive>
         </configuration>
