@@ -82,7 +82,7 @@ public class ComunidadController {
         }
         Long id = Long.parseLong(request.params("id"));
         Comunidad comunidad = repoComunidades.get(id);
-        if (comunidad == null) response.status(400);
+        if (comunidad == null) response.status(404);
         return comunidad;
     }
 
@@ -95,7 +95,7 @@ public class ComunidadController {
         Long id = Long.parseLong(request.params("id"));
         Comunidad comunidad = repoComunidades.get(id);
         if (comunidad == null) {
-            response.status(400);
+            response.status(404);
             return "Id de comunidad desconocida";
         }
         repoComunidades.remove(comunidad);
@@ -141,7 +141,7 @@ public class ComunidadController {
         Long id = Long.parseLong(request.params("id"));
         Comunidad comunidad = repoComunidades.get(id);
         if (comunidad == null) {
-            response.status(400);
+            response.status(404);
             return "No se conoce comunidad con ese Id";
         }
         AddComunidad newComunidad = gson.fromJson(request.body(), AddComunidad.class);
@@ -183,7 +183,7 @@ public class ComunidadController {
         Long id = Long.parseLong(request.params("id"));
         Comunidad comunidad = repoComunidades.get(id);
         if (comunidad == null) {
-            response.status(400);
+            response.status(404);
             return "No se conoce comunidad con ese Id";
         }
         Servicio servicio = repoServicios.get(Long.parseLong(request.params("servicio")));
@@ -195,7 +195,7 @@ public class ComunidadController {
             response.status(200);
             return "Abierto el incidente!";
         } else {
-            response.status(400);
+            response.status(404);
             return null;
         }
     }

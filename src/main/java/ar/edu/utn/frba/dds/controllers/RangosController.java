@@ -22,7 +22,7 @@ public class RangosController extends GeneralController {
         String userId = request.queryParams("userId");
         Usuario usuario = repoUsuario.get(Long.parseLong(userId));
         if (usuario == null) {
-            response.status(400);
+            response.status(404);
             return null;
         }
         String startDate = request.queryParams("startdate");
@@ -45,7 +45,7 @@ public class RangosController extends GeneralController {
         Usuario usuario = repoUsuario.get(Long.parseLong(userId));
         Rango rango = repoRangos.get(Long.parseLong(rangoId));
         if (rango == null || usuario == null) {
-            response.status(400);
+            response.status(404);
             return null;
         }
         usuario.removeRangoNotificaciones(rango);

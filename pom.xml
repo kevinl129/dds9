@@ -16,9 +16,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <azure.functions.maven.plugin.version>1.24.0</azure.functions.maven.plugin.version>
+    <azure.functions.java.library.version>3.0.0</azure.functions.java.library.version>
+    <functionAppName>dds-cron</functionAppName>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.microsoft.azure.functions</groupId>
+      <artifactId>azure-functions-java-library</artifactId>
+      <version>${azure.functions.java.library.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.sun.mail</groupId>
       <artifactId>javax.mail</artifactId>
@@ -110,6 +118,52 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>com.microsoft.azure</groupId>
+        <artifactId>azure-functions-maven-plugin</artifactId>
+        <version>${azure.functions.maven.plugin.version}</version>
+        <configuration>
+          <!-- function app name -->
+          <appName>${functionAppName}</appName>
+          <!-- function app resource group -->
+          <resourceGroup>java-functions-group</resourceGroup>
+          <!-- function app service plan name -->
+          <appServicePlanName>java-functions-app-service-plan</appServicePlanName>
+          <!-- function app region-->
+          <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details#supported-regions for all valid values -->
+          <region>westus</region>
+          <!-- function pricingTier, default to be consumption if not specified -->
+          <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details#supported-pricing-tiers for all valid values -->
+          <!-- <pricingTier></pricingTier> -->
+
+          <!-- Whether to disable application insights, default is false -->
+          <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details for all valid configurations for application insights-->
+          <!-- <disableAppInsights></disableAppInsights> -->
+          <runtime>
+            <!-- runtime os, could be windows, linux or docker-->
+            <os>windows</os>
+            <javaVersion>8</javaVersion>
+            <!-- for docker function, please set the following parameters -->
+            <!-- <image>[hub-user/]repo-name[:tag]</image> -->
+            <!-- <serverId></serverId> -->
+            <!-- <registryUrl></registryUrl>  -->
+          </runtime>
+          <appSettings>
+            <property>
+              <name>FUNCTIONS_EXTENSION_VERSION</name>
+              <value>~4</value>
+            </property>
+          </appSettings>
+        </configuration>
+        <executions>
+          <execution>
+            <id>package-functions</id>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

@@ -21,7 +21,7 @@ public class InteresesController extends GeneralController {
         Usuario usuario = repoUsuario.get(Long.parseLong(userId));
         Servicio servicio = repoServicios.get(Long.parseLong(serviceId));
         if (usuario == null || servicio == null) {
-            response.status(400);
+            response.status(404);
             return null;
         }
         Interes interes = new Interes(servicio);
@@ -37,7 +37,7 @@ public class InteresesController extends GeneralController {
         Usuario usuario = repoUsuario.get(Long.parseLong(userId));
         Interes interes = repoIntereses.get(Long.parseLong(interesId));
         if (interes == null || usuario == null) {
-            response.status(400);
+            response.status(404);
             return null;
         }
         usuario.removeInteres(interes);

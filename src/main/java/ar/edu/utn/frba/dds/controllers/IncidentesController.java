@@ -7,10 +7,12 @@ import ar.edu.utn.frba.dds.model.Servicio;
 import ar.edu.utn.frba.dds.repos.RepoEntidades;
 import ar.edu.utn.frba.dds.repos.RepoIncidentes;
 import ar.edu.utn.frba.dds.repos.RepoServicios;
+import ar.edu.utn.frba.dds.requests.AddAgrupacionServicios;
+import ar.edu.utn.frba.dds.requests.OpenIncidente;
+import com.google.gson.Gson;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.text.View;
 import spark.ModelAndView;
 import spark.Request;
@@ -20,7 +22,10 @@ public class IncidentesController extends GeneralController {
   private RepoIncidentes repoIncidentes = RepoIncidentes.getSingletonInstance();
   private RepoEntidades repoEntidades = RepoEntidades.getSingletonInstance();
   private RepoServicios repoServicios = RepoServicios.getSingletonInstance();
-
+  Gson gson;
+  public IncidentesController(Gson gson) {
+    this.gson = gson;
+  }
   public ModelAndView mostrar(Request request, Response response) {
     if (checkUserIsLogged(request, response)) return new ModelAndView(null, "login.html.hbs");
     String nombreServicioCreado = request.queryParams("created");
@@ -68,9 +73,10 @@ public class IncidentesController extends GeneralController {
 
   public View abrir(Request request, Response response) {
     if (checkUserIsLogged(request, response)) return null;
-    Servicio servicio = repoServicios.get(Long.parseLong(request.queryParams("service")));
+    OpenIncidente openIncidente = gson.fromJson(request.body(), OpenIncidente.class);
+    Servicio servicio = repoServicios.get(openIncidente.getService());
     if (servicio != null) {
-      Incidente incidente = new Incidente(servicio, request.queryParams("observacion"));
+      Incidente incidente = new Incidente(servicio, openIncidente.getObservacion());
       repoIncidentes.abrir(incidente);
       try {
         response.redirect("/incidentes?created="+ URLEncoder.encode(servicio.getNombre(), "UTF-8"), 303);
@@ -79,7 +85,7 @@ public class IncidentesController extends GeneralController {
       }
       return null;
     }
-    response.status(400);
+    response.status(404);
     return null;
   }
 

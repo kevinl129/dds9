@@ -134,7 +134,7 @@ public class UsuariosController extends GeneralController {
             }
             return null;
         }
-        response.status(400);
+        response.status(404);
         return null;
     };
 
