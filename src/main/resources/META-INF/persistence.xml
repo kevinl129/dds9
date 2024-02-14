@@ -30,8 +30,8 @@
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.connection.url" value="jdbc:sqlserver://dds9.database.windows.net:1433;database=dds;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
-            <property name="hibernate.connection.username" value="dds"/>
+            <property name="hibernate.connection.url" value="jdbc:sqlserver://ddstp2023.database.windows.net:1433;database=dds;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
+            <property name="hibernate.connection.username" value="dds@ddstp2023"/>
             <property name="hibernate.connection.password" value="Admin9sistemas"/>
             <property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2016Dialect"/>
