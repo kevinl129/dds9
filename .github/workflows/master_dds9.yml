@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean package
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'dds9'
           slot-name: 'Production'
-          package: '*.jar'
+          package: '${{ github.workspace }}/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_534B11CC0EC84AF4923D9E71E5A69C05 }}
