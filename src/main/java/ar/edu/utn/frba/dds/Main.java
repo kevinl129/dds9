@@ -21,7 +21,7 @@ public class Main implements WithSimplePersistenceUnit {
         Gson gson = new Gson();
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
         LoginController loginController = new LoginController();
-        IncidentesController incidentesController = new IncidentesController(gson);
+        IncidentesController incidentesController = new IncidentesController();
         EntidadController entidadesController = new EntidadController();
         EstablecimientosController establecimientosController = new EstablecimientosController();
         ExceptionController generalController = new ExceptionController();
