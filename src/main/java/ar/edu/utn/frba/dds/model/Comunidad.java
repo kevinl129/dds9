@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "Comunidades", uniqueConstraints={@UniqueConstraint(columnNames = {"nombre"})})
 public class Comunidad {
   private String nombre;
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "miembros")
   private List<Usuario> miembros;
   @ManyToMany

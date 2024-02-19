@@ -192,6 +192,7 @@ public class ComunidadController {
             Incidente incidente = new Incidente(servicio, abrirIncidente.getObservacion());
             repoIncidentes.abrir(incidente);
             comunidad.abrirIncidente(incidente);
+            repoComunidades.add(comunidad);
             response.status(200);
             return "Abierto el incidente!";
         } else {
