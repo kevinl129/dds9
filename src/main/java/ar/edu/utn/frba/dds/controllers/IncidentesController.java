@@ -4,11 +4,8 @@ import ar.edu.utn.frba.dds.model.Entidad;
 import ar.edu.utn.frba.dds.model.Establecimiento;
 import ar.edu.utn.frba.dds.model.Incidente;
 import ar.edu.utn.frba.dds.model.Servicio;
-import ar.edu.utn.frba.dds.repos.RepoEntidades;
 import ar.edu.utn.frba.dds.repos.RepoIncidentes;
 import ar.edu.utn.frba.dds.repos.RepoServicios;
-import ar.edu.utn.frba.dds.requests.AddAgrupacionServicios;
-import ar.edu.utn.frba.dds.requests.OpenIncidente;
 import com.google.gson.Gson;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,12 +17,8 @@ import spark.Response;
 
 public class IncidentesController extends GeneralController {
   private RepoIncidentes repoIncidentes = RepoIncidentes.getSingletonInstance();
-  private RepoEntidades repoEntidades = RepoEntidades.getSingletonInstance();
   private RepoServicios repoServicios = RepoServicios.getSingletonInstance();
-  Gson gson;
-  public IncidentesController(Gson gson) {
-    this.gson = gson;
-  }
+
   public ModelAndView mostrar(Request request, Response response) {
     if (checkUserIsLogged(request, response)) return new ModelAndView(null, "login.html.hbs");
     String nombreServicioCreado = request.queryParams("created");
@@ -73,10 +66,9 @@ public class IncidentesController extends GeneralController {
 
   public View abrir(Request request, Response response) {
     if (checkUserIsLogged(request, response)) return null;
-    OpenIncidente openIncidente = gson.fromJson(request.body(), OpenIncidente.class);
-    Servicio servicio = repoServicios.get(openIncidente.getService());
+    Servicio servicio = repoServicios.get(Long.parseLong(request.queryParams("service")));
     if (servicio != null) {
-      Incidente incidente = new Incidente(servicio, openIncidente.getObservacion());
+      Incidente incidente = new Incidente(servicio, request.queryParams("observacion"));
       repoIncidentes.abrir(incidente);
       try {
         response.redirect("/incidentes?created="+ URLEncoder.encode(servicio.getNombre(), "UTF-8"), 303);
